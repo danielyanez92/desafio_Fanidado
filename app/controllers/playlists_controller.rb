@@ -5,6 +5,7 @@ class PlaylistsController < ApplicationController
   # GET /playlists.json
   def index
     @playlists = Playlist.all
+
   end
 
   # GET /playlists/1
@@ -24,8 +25,8 @@ class PlaylistsController < ApplicationController
   # POST /playlists
   # POST /playlists.json
   def create
-    @playlist = Playlist.new(playlist_params)
-
+    @user = User.find(params[:playlist][:user_id])
+    @playlist = Playlist.new(name: params[:playlist][:name], user: @user )
     respond_to do |format|
       if @playlist.save
         format.html { redirect_to @playlist, notice: 'Playlist was successfully created.' }
